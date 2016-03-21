@@ -4,11 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var log = require(path.join(__dirname,'libs/log'))(module);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+log.info('app.js runs');
 //Middleware
 app.use(function (req, res, next) {
   if(req.url == '/') {
@@ -35,13 +37,13 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-  res.send(404, "Page not found")
+  res.status(404).send("Page not found");
 });
 
 //error handler
 app.use(function (err, req, res, next) {
   //app.get('env')
-  console.log("ERROR", err.message);
+    log.info("ERROR", err.message);
   if(app.get('env') === 'development'){
     res.status(err.status || 500).send(err.message);
   }

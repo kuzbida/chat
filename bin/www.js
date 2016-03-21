@@ -8,11 +8,12 @@ var app = require('../app');
 var debug = require('debug')('chat:server');
 var http = require('http');
 
+var config = require('../config');
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(config.get('port') || '3000');
 app.set('port', port);
 
 /**
